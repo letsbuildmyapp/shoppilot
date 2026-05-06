@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/accounts/$(request.auth.uid))
+        && get(/databases/$(database)/documents/accounts/$(request.auth.uid)).data.isAdmin == true;
+    }
+
+    match /accounts/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid)
+                    && request.resource.data.isAdmin == false;
+      allow update: if (isOwner(uid)
+                       && request.resource.data.isAdmin == resource.data.isAdmin)
+                    || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Products: public read; admin write only
+    match /products/{id} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Orders: owner read; admin read/write all; create from app on behalf of self
+    match /orders/{id} {
+      allow read: if isSignedIn() && (resource.data.ownerUid == request.auth.uid || isAdmin());
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+  }
+}

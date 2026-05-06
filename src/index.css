@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+@import url('https://fonts.bunny.net/css?family=geist:400,500,600,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: light; }
+  html, body, #root { height: 100%; }
+  /* Editorial body 17px / 1.6 — within HIG body floor */
+  html { font-size: 17px; }
+  body {
+    @apply bg-bone-50 text-coal font-sans antialiased;
+    font-feature-settings: "ss01", "ss02";
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 { @apply font-display text-coal; line-height: 1.1; letter-spacing: -0.01em; }
+  .tnum, [data-tnum] { font-variant-numeric: tabular-nums; }
+  *:focus-visible {
+    @apply outline-none ring-2 ring-forest ring-offset-2 ring-offset-bone-50;
+  }
+  ::selection { @apply bg-forest text-bone-50; }
+}
+
+@layer components {
+  .container-edit { @apply mx-auto w-full max-w-[1400px] px-6 md:px-10; }
+  .container-prose { @apply mx-auto w-full max-w-[760px] px-6 md:px-10; }
+
+  .display-xl {
+    @apply font-display font-light leading-[0.95];
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    letter-spacing: -0.03em;
+  }
+  .display-lg {
+    @apply font-display font-light leading-[1];
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem);
+    letter-spacing: -0.025em;
+  }
+  .display-md {
+    @apply font-display font-normal leading-[1.05];
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    letter-spacing: -0.02em;
+  }
+
+  .eyebrow { @apply uppercase tracking-[0.18em] text-xs font-medium text-coal-mute; }
+  .rule { @apply border-t border-line; }
+
+  /* Buttons — 44px min, rounded-none */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px];
+  }
+  .btn-primary { @apply btn bg-forest text-bone-50 hover:bg-forest-deep; }
+  .btn-outline { @apply btn border border-coal text-coal hover:bg-coal hover:text-bone-50; }
+  .btn-ghost { @apply btn text-coal hover:bg-bone-100; }
+
+  .input {
+    @apply w-full bg-transparent border-b border-line px-0 py-3 text-coal placeholder:text-coal-mute focus:border-forest focus:outline-none;
+  }
+  .input-box {
+    @apply w-full bg-bone-50 border border-line px-4 py-3 text-coal placeholder:text-coal-mute focus:border-forest focus:outline-none;
+  }
+
+  .card { @apply bg-bone-50 border border-line p-6; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] uppercase tracking-[0.12em] font-medium border border-line bg-bone-100;
+  }
+  .badge-shopify {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] uppercase tracking-[0.12em] font-medium border text-forest;
+    border-color: oklch(34% 0.060 155 / 0.4);
+    background-color: oklch(34% 0.060 155 / 0.08);
+  }
+  .badge-clay {
+    @apply badge text-clay;
+    border-color: oklch(56% 0.085 50 / 0.4);
+    background-color: oklch(56% 0.085 50 / 0.08);
+  }
+
+  .kbd {
+    @apply inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-[11px] font-medium border border-line bg-bone-50 text-coal-soft;
+  }
+}

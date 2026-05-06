@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "demo-shoppilot"
+  },
+  "targets": {
+    "demo-shoppilot": {
+      "hosting": {
+        "staging": ["shoppilot-staging"],
+        "prod": ["shoppilot"]
+      }
+    }
+  }
+}
