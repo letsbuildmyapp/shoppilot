@@ -68,17 +68,8 @@ export default function SignIn() {
 
   return (
     <div className="relative flex min-h-screen flex-col">
-      <header className="relative z-10 flex items-center justify-between px-6 py-5 sm:px-10">
-        <Link to="/" className="font-display text-2xl tracking-tight">ShopPilot</Link>
-        <span className="text-xs text-coal-mute">
-          Need help?{' '}
-          <a href="mailto:hello@letsbuildmyapp.com?subject=ShopPilot%20support" className="text-coal underline-offset-4 hover:underline">
-            Contact support
-          </a>
-        </span>
-      </header>
 
-      <main className="relative z-10 flex flex-1 items-center justify-center px-6 py-10">
+      <main className="relative z-10 flex flex-1 items-start justify-center px-6 pt-8 sm:pt-12 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
